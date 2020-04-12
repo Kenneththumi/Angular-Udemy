@@ -1,5 +1,7 @@
 import { Ingredient } from '../shared/ingredient.model';
+import { Injectable } from "@angular/core";
 
+@Injectable()
 export class ShoppingListService{
     private ingredients:Ingredient[] =  [
         new Ingredient('Onions', 6 ),

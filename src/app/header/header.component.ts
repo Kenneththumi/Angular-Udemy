@@ -6,11 +6,11 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent{
-  @Output() selectedOption = new EventEmitter<string>();
+  //@Output() selectedOption = new EventEmitter<string>();
   constructor() { }
 
-   onSelect(option){
-       this.selectedOption.emit(option);
-   }
+  //  onSelect(option){
+  //      this.selectedOption.emit(option);
+  //  }
 
 }

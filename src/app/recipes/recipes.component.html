@@ -5,14 +5,17 @@
     </div>
     <!-- <h2>{{recipa.name}}</h2> -->
     <div class="col-md-7">
-            <app-recipe-detail 
+
+          <router-outlet></router-outlet>
+          
+            <!-- <app-recipe-detail 
                  *ngIf = "recipa != ''; else infoText"
                 [recip] = "recipa"
             >
             </app-recipe-detail>
             <ng-template #infoText>
                 <p>Please Selecta a Recipe</p>
-            </ng-template>
+            </ng-template> -->
             
     </div>
     

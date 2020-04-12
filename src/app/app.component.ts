@@ -6,14 +6,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-   option = 'recipe';
+  //  option = 'recipe';
   
   
-   onSelectOption(e){
+  //  onSelectOption(e){
      
      
-     this.option = e;
-   }
+  //    this.option = e;
+  //  }
 
 
 }
