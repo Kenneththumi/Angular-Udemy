@@ -17,6 +17,20 @@ export class ShoppingListComponent implements OnInit {
           this.ingredients = this.shoppingListService.getIngredients();
   }
 
+
+  editIngredient(e){
+       this.shoppingListService.editIngredientEvent.next(e);   //emit event with index
+  }
+
+
+
+}
+
+
+
+
+
+
 //   getAddedIngredient(e){
 //        this.ingredients.push(
          
@@ -24,5 +38,3 @@ export class ShoppingListComponent implements OnInit {
          
 //        )
 //   }
-
-}

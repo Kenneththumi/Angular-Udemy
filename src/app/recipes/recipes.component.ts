@@ -9,14 +9,14 @@ import { RecipeService } from './recipe.service';
   providers:[RecipeService]
 })
 export class RecipesComponent implements OnInit {
-   recipa:Recipe[] = [];
+   //recipa:Recipe[] = [];
 
   constructor(private recipeInstance:RecipeService) { }
 
-  ngOnInit() {
-        this.recipeInstance.recipeSelected.subscribe(
-            (recip:Recipe[]) => { this.recipa = recip }
-        );
+  ngOnInit() {  //Using routing now
+        // this.recipeInstance.recipeSelected.subscribe(
+        //     (recip:Recipe[]) => { this.recipa = recip }
+        // );
   }
 
   // getRecipa(e){
