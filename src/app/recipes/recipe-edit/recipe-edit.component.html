@@ -1,35 +1,87 @@
 <div>
     <!-- form -->
-    <form>
+    <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
           <label for="exampleInputEmail1">Recipe</label>
-          <input type="text" name="name" class="form-control input-sm" [(ngModel)]="recipe.name"  placeholder="Recipe Name">
+          <input 
+              type="text" 
+              name="name" 
+              class="form-control input-sm" 
+              formControlName="recipeName" 
+              placeholder="Recipe Name">
     
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Description</label>
-          <textarea name="description" id="" cols="30" rows="10" [(ngModel)]="recipe.description"   class="form-control  input-sm"></textarea>
+          <textarea 
+              name="description"
+              rows="6" 
+              formControlName="recipeDescription"   
+              class="form-control  input-sm"></textarea>
         </div>
-        <div class="form-group">
-            
-          <label  for="exampleCheck1">Image</label>
-          <input type="file" class="form-control  input-sm" id="exampleCheck1">
+        <div class="form-group">   
+          <label  for="exampleCheck1">Image Path</label>
+          <input 
+                type="text" 
+                class="form-control  input-sm" 
+                formControlName="imgPath"
+                placeholder="image path" 
+                id="exampleCheck1" #imgPath>
         </div>
-        
+        <!-- image preview -->
+        <div class="row">
+          <div class="col-xs-12">
+             <!-- <img [src]="recipeForm.get('imgPath').value"  class="img-responsive"> -->
+             <img [src]="imgPath.value"  class="img-responsive">
+          </div>
+          <br>
+        </div>
         <!-- loop -->
-        <div *ngFor="let ingredient of recipe.ingredients">
-           <div class="form-group">
-            <label for="exampleInputPassword1">Ingredient</label>
-                <input type="text" name="ingredient-name" class="form-control  input-sm"  [(ngModel)]="ingredient.name"    placeholder="Ingredient Name">
-            </div>
-            <div class="form-group">
-            <label for="exampleInputPassword1">Amount</label>
-                <input type="number" class="form-control input-sm"  name="amount"  min="1"  [(ngModel)]="ingredient.amount"   placeholder="amount">
-            </div>
+        <div 
+            formArrayName="ingredients">
+          <br>
+             <div class="row" 
+             *ngFor="let ingredient of controls; let i=index"  
+             [formGroupName]="i"  style="margin-top:5px">
+                <div class="col-xs-8">
+                  <input type="text" name="ingredientname" formControlName="name" class="form-control input-sm">
+                </div>
+                <div class="col-xs-3">
+                  <input type="number" name="amount" formControlName="amount" class="form-control input-sm">
+                </div>
+                <div class="col-xs-1">
+                  <button (click) = "onDeleteIngredient(i)" class="btn btn-sm btn-danger">
+                      X
+                  </button>
+                </div>
+             </div>
+               
         </div>
-        <!-- /loop -->
-       
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="row">
+          <div class="col-xs-12" style="margin-top:5px">
+                <button type="button" (click)="onAddIngredient()" class="btn btn-sm btn-success">
+                      Add Ingredient
+              </button>
+          </div>       
+        </div>
+    <hr>
+        <button type="submit" class="btn btn-sm btn-primary mr-15" [disabled]="recipeForm.invalid" >Submit</button>
+        <button type="button" class="btn btn-sm btn-warning" (click)=" onCancelForm()">Cancel</button>
       </form>
     <!-- /form -->
 </div>
+
+
+
+
+     <!-- <div *ngFor="let ingredient of recipe.ingredients">
+           <div class="form-group">
+            <label for="exampleInputPassword1">Ingredient</label>
+                <input type="text" name="ingredient-name" class="form-control  input-sm"  [value]="ingredient.name"    placeholder="Ingredient Name">
+            </div>
+            <div class="form-group">
+            <label for="exampleInputPassword1">Amount</label>
+                <input type="number" class="form-control input-sm"  name="amount"  min="1"  [value]="ingredient.amount"   placeholder="amount">
+            </div>
+        </div> -->
+        <!-- /loop -->

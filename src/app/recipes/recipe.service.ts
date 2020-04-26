@@ -1,10 +1,12 @@
 import { Recipe } from './recipes.model';
 import { EventEmitter, Injectable } from '@angular/core';
 import { Ingredient } from '../shared/ingredient.model';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class RecipeService{
     //recipeSelected = new EventEmitter<Recipe>();
+     emitRecipe = new Subject<Recipe[]>();
 
     private recipe:Recipe[] = [
         new Recipe(
@@ -13,7 +15,8 @@ export class RecipeService{
                  'https://3.bp.blogspot.com/-gJ3x22_tPKY/VYkUAAA5CcI/AAAAAAAAAI0/bKVm0vTLqD8/s1600/githeri.jpg',
                  [
                      new Ingredient('Maize', 9),
-                     new Ingredient('Carrots', 0.2)
+                     new Ingredient('Carrots', 0.2),
+                     new Ingredient('Tomatoes', 2)
                  ]
                  ),
         new Recipe(
@@ -35,5 +38,41 @@ export class RecipeService{
          return this.recipe[index];
      }
 
+     //edit item
+     editRecipeItem(index:number, recip){
+                this.recipe[index] = new Recipe(
+                                                    recip.recipeName, 
+                                                    recip.recipeDescription,
+                                                    recip.imgPath,
+                                                    recip.ingredients, 
+                                                );
+
+           this.emitRecipe.next(this.recipe.slice())
+     }
+
+     //add item
+     addRecipeItem(recip:Recipe){
+           this.recipe.push(recip);
+
+           //emits the new recipe
+           this.emitRecipe.next(this.recipe.slice())
+     }
+
+     //delete recipe
+     deleteRecipeItem(index:number){
+          
+        this.recipe.splice(index,1);
+        
+        //emits the new recipe
+        this.emitRecipe.next(this.recipe.slice())
+     }
+
+     //delete recipe ingredient
+     deleteRecipeIngredient(recipeIndex:number, ingredientIndex:number){
+           this.recipe[recipeIndex].ingredients.splice(ingredientIndex,1);
+
+           //emits the new recipe
+           this.emitRecipe.next(this.recipe.slice())
+     }
 
 }
